@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/catalog.css' %}">
+{% endblock %}
+
+{% block title %}Cat Cafe Athens Storefront - {{ item.name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5 menu-page">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="beige-box product-detail">
+                <div class="row align-items-center g-4">
+
+                    <div class="col-md-6">
+                        <div class="product-image-wrapper">
+                            {% if item.image %}
+                                <img src="{{ item.image.url }}" class="img-fluid product-image" alt="{{ item.name }}">
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="product-info">
+                            <h1>{{ item.name }}</h1>
+
+                            <p class="product-price">€{{ item.price }}</p>
+
+                            <p><strong>Category:</strong> {{ item.category.name }}</p>
+                            <p><strong>Subcategory:</strong> {{ item.subcategory.name }}</p>
+                            <p><strong>Description:</strong> {{ item.short_description }}</p>
+
+                            <p>
+                                <strong>Tags:</strong>
+                                {% for tag in item.tags.all %}
+                                    {{ tag.name }}{% if not forloop.last %}, {% endif %}
+                                {% empty %}
+                                    No tags assigned.
+                                {% endfor %}
+                            </p>
+
+                            <a href="{% url 'catalog:menu_list' %}" class="btn btn-dark mt-3">
+                                Back to Menu
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

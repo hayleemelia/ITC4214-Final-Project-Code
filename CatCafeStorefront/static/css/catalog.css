@@ -1,0 +1,83 @@
+/* Styling for all menu page related components */
+
+/* Styles relating to menu_list.html */
+.card {
+    background-color: #F2F1E5;
+    border: 2px solid black;
+    max-height: 600px;
+    overflow-y: scroll;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body .btn {
+    margin-top: auto;
+}
+
+.card-img-top {
+    border-bottom: 2px solid black;
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+}
+
+/* Styles relating to item_detail.html */
+.product-detail {
+    padding: 30px 10px;
+    border-radius: 16px;
+}
+
+.product-image-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-image {
+    width: 100%;
+    max-width: 450px;
+    height: 350px;
+    object-fit: cover;
+    border: 1px solid black;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.product-info {
+    text-align: left;
+}
+
+.menu-page .product-info h1 {
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.product-info p {
+    margin-bottom: 12px;
+    font-size: 18px;
+}
+
+.product-price {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 767px) {
+    .product-info {
+        text-align: center !important;
+    }
+
+    .product-info h1 {
+        text-align: center;
+    }
+
+    .product-image {
+        height: 280px;
+    }
+}

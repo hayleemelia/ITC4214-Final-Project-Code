@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'core',
     'orders',
     'reviews',
+    'widget_tweaks',
+
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -131,3 +133,7 @@ STATICFILES_DIRS = [
 # Authentication redirects
 LOGIN_REDIRECT_URL = 'core:home'
 LOGOUT_REDIRECT_URL = 'core:home'
+
+#Media configuration for image file handling
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
