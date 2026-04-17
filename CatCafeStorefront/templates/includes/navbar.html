@@ -1,0 +1,25 @@
+{% load static %}
+
+<div class="bg-img" role="img" aria-label="Decorative banner image of the Cat Cafe Athens"></div>
+
+<nav class="nav-container" aria-label="Main Navigation">
+    <div class="top-nav">
+        <div class="nav-logo" id="nav-logo">
+            <a href="{% url 'core:home' %}" aria-label="Go to Home page">
+                <img src="{% static 'images/catcafe-circlelogo.png' %}" alt="Cat Cafe Athens Logo">
+            </a>
+        </div>
+
+        <div class="nav-links" id="primary-navigation">
+            <a href="{% url 'core:home' %}" aria-label="Go to Home page">Home</a>
+            <a href="#" aria-label="Go to Menu page">Menu</a>
+            <a href="#" aria-label="Go to Order page">Order Now!</a>
+        </div>
+
+        <div class="nav-cart">
+            <a href="#" class="cart-btn" aria-label="Go to Shopping Cart">
+                Cart
+            </a>
+        </div>
+    </div>
+</nav>

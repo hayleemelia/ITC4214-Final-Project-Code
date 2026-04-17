@@ -1,0 +1,27 @@
+<div class="topbar">
+    <div class="topbar-left">
+        {% if user.is_authenticated %}
+            {% if user.is_staff or user.is_superuser %}
+                <span class="user-status">Admin</span>
+            {% else %}
+                <span class="user-status">Member</span>
+            {% endif %}
+        {% else %}
+            <span class="user-status">Guest</span>
+        {% endif %}
+    </div>
+
+    <div class="topbar-right">
+        {% if user.is_authenticated %}
+            <a href="{% url 'accounts:profile' %}" class="topbar-btn">Profile</a>
+
+            <form action="{% url 'accounts:logout' %}" method="post" class="logout-form">
+                {% csrf_token %}
+                <button type="submit" class="topbar-btn">Logout</button>
+            </form>
+        {% else %}
+            <a href="{% url 'accounts:register' %}" class="topbar-btn">Register</a>
+            <a href="{% url 'accounts:login' %}" class="topbar-btn">Login</a>
+        {% endif %}
+    </div>
+</div>

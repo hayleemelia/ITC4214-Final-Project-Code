@@ -7,5 +7,5 @@ def temp_home(request):
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
-    path('', temp_home, name='home'),
+    path("", include("core.urls")),
 ]
