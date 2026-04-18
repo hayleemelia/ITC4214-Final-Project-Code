@@ -24,9 +24,14 @@
     object-fit: cover;
 }
 
+.no-results {
+    font-size: 20px;
+    text-align: center;
+}
+
 /* Styles relating to item_detail.html */
 .product-detail {
-    padding: 30px 10px;
+    padding: 30px 20px;
     border-radius: 16px;
 }
 
@@ -34,7 +39,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .product-image {
@@ -54,18 +59,84 @@
 .menu-page .product-info h1 {
     text-align: left;
     margin-top: 0;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .product-info p {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     font-size: 18px;
 }
 
 .product-price {
-    font-size: 28px;
+    font-size: 30px;
     font-weight: bold;
     margin-bottom: 20px;
+}
+
+.product-meta {
+    margin-bottom: 20px;
+}
+
+.product-description-box {
+    margin-top: 10px;
+}
+
+.detail-col {
+    max-height: 350px;
+    overflow-y: scroll;
+}
+
+.detail-subheading {
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.tag-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #f3e7cf;
+    border: 1px solid black;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.no-tags {
+    font-size: 16px;
+}
+
+.item-rating-box {
+    background-color: #C1EBE2;
+    border: 1px solid black;
+    border-radius: 14px;
+    padding: 18px;
+}
+
+.rating-summary {
+    font-size: 20px;
+    margin-bottom: 6px;
+}
+
+.rating-count {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.rating-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.rating-select {
+    max-width: 220px;
 }
 
 @media (max-width: 767px) {
@@ -73,11 +144,23 @@
         text-align: center !important;
     }
 
-    .product-info h1 {
+    .menu-page .product-info h1 {
         text-align: center;
     }
 
     .product-image {
         height: 280px;
+    }
+
+    .tag-list {
+        justify-content: center;
+    }
+
+    .rating-form {
+        align-items: center;
+    }
+
+    .rating-select {
+        max-width: 100%;
     }
 }

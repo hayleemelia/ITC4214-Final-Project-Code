@@ -12,9 +12,116 @@
     <h1>Our Menu</h1>
     <p class="sec-desc">Take a look at the drinks and desserts we offer! If you're curious about something, simply click on the card to learn more!</p>
 
+    <!-- Mobile Filter Toggle Button -->
+    <div class="d-md-none mb-3">
+        <button
+            class="btn btn-dark w-100"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#menuFilters"
+            aria-expanded="false"
+            aria-controls="menuFilters">
+            Browse Menu Filters
+        </button>
+    </div>
+
+    <div class="collapse d-md-block" id="menuFilters">
+    <form method="get" class="row g-3 m-3 filter-form beige-box">
+        <!-- Searchbar -->
+        <div class="col-md-4">
+            <label for="q" class="form-label">Search</label>
+            <input
+                type="text"
+                name="q"
+                id="q"
+                class="form-control"
+                placeholder="Search by item name or subcategory"
+                value="{{ current_q }}"
+            >
+        </div>
+
+        <!-- Category -->
+        <div class="col-md-2">
+            <label for="category" class="form-label">Category</label>
+            <select name="category" id="category" class="form-select">
+                <option value="">All Categories</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}"
+                        {% if current_category == category.id|stringformat:"s" %}selected{% endif %}>
+                        {{ category.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Subcategory -->
+        <div class="col-md-2">
+            <label for="subcategory" class="form-label">Subcategory</label>
+            <select name="subcategory" id="subcategory" class="form-select">
+                <option value="">All Subcategories</option>
+                {% for subcategory in subcategories %}
+                    <option value="{{ subcategory.id }}"
+                        {% if current_subcategory == subcategory.id|stringformat:"s" %}selected{% endif %}>
+                        {{ subcategory.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Tag -->
+        <div class="col-md-2">
+            <label for="tag" class="form-label">Tag</label>
+            <select name="tag" id="tag" class="form-select">
+                <option value="">All Tags</option>
+                {% for tag in tags %}
+                    <option value="{{ tag.id }}"
+                        {% if current_tag == tag.id|stringformat:"s" %}selected{% endif %}>
+                        {{ tag.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Min Price -->
+        <div class="col-md-1">
+            <label for="min_price" class="form-label">Min €</label>
+            <input
+                type="number"
+                name="min_price"
+                id="min_price"
+                class="form-control"
+                step="0.01"
+                min="0"
+                value="{{ current_min_price }}"
+            >
+        </div>
+
+        <!-- Max Price -->
+        <div class="col-md-1">
+            <label for="max_price" class="form-label">Max €</label>
+            <input
+                type="number"
+                name="max_price"
+                id="max_price"
+                class="form-control"
+                step="0.01"
+                min="0"
+                value="{{ current_max_price }}"
+            >
+        </div>
+
+        <!-- Buttons -->
+        <div class="col-12 d-flex justify-content-center justify-content-md-end gap-2 mb-3">
+            <button type="submit" class="btn btn-dark">Apply Filters</button>
+            <a href="{% url 'catalog:menu_list' %}" class="btn btn-danger">Reset</a>
+        </div>
+    </form>
+    </div>
+
+    <!-- Menu Catalog Cards-->
     <div class="row">
         {% for item in items %}
-            <div class="col-md-4 mb-4">
+            <div class="col-md-4 mb-4 mt-2">
                 <div class="card h-100">
                     {% if item.image %}
                         <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}">
@@ -34,7 +141,7 @@
                 </div>
             </div>
         {% empty %}
-            <p>No menu items are currently available.</p>
+            <p class="no-results">No menu items match your search/filter criteria. Please reset your filters and try again.</p>
         {% endfor %}
     </div>
 </div>
