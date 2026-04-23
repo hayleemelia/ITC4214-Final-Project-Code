@@ -7,10 +7,19 @@
 
 {% block title %}Cat Cafe Athens Storefront - Menu{% endblock %}
 
+{% block extra_js %}
+<script src="{% static 'js/favorites.js' %}" defer></script>
+{% endblock %}
+
 {% block content %}
 <div class="container menu-page">
     <h1>Our Menu</h1>
     <p class="sec-desc">Take a look at the drinks and desserts we offer! If you're curious about something, simply click on the card to learn more!</p>
+
+    <!-- Added to prevent CSRF errors with the JS file -->
+    <form style="display: none;">
+        {% csrf_token %}
+    </form>
 
     <!-- Mobile Filter Toggle Button -->
     <div class="d-md-none mb-3">
@@ -25,6 +34,8 @@
         </button>
     </div>
 
+
+    <!-- Search/Filter Section -->
     <div class="collapse d-md-block" id="menuFilters">
     <form method="get" class="row g-3 m-3 filter-form beige-box">
         <!-- Searchbar -->
@@ -134,9 +145,30 @@
                         <p>{{ item.short_description }}</p>
                         <p><strong>Price:</strong> €{{ item.price }}</p>
 
-                        <a href="{{ item.get_absolute_url }}" class="btn btn-dark">
-                            View Item
-                        </a>
+                        <div class="card-action-row mt-auto">
+                            <a href="{{ item.get_absolute_url }}" class="btn btn-dark action-btn view-btn">
+                                View Item
+                            </a>
+
+                            {% if user.is_authenticated %}
+                                <button
+                                    type="button"
+                                    class="btn action-btn favorite-card-btn {% if item.id in favorite_item_ids %}favorited{% endif %}"
+                                    data-url="{% url 'catalog:toggle_favorite' item.slug %}"
+                                    data-tooltip="{% if item.id in favorite_item_ids %}Remove item from favorites{% else %}Save item to favorites{% endif %}"
+                                    aria-label="Toggle favorite">
+                                    <span class="favorite-heart">
+                                        {% if item.id in favorite_item_ids %}♥{% else %}♡{% endif %}
+                                    </span>
+                                </button>
+                            {% else %}
+                                <a href="{% url 'accounts:login' %}?next={{ request.path }}"
+                                   class="btn action-btn favorite-card-btn"
+                                   data-tooltip="Log in to save favorites">
+                                    <span class="favorite-heart">♡</span>
+                                </a>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
