@@ -19,6 +19,12 @@
                 </div>
 
                 <div class="col-md-6">
+                    <label class="form-label">Slug</label>
+                    {{ form.slug }}
+                    {{ form.slug.errors }}
+                </div>
+
+                <div class="col-md-6">
                     <label class="form-label">Price</label>
                     {{ form.price }}
                     {{ form.price.errors }}

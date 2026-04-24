@@ -1,5 +1,5 @@
 from django import forms
-from .models import MenuItem, Category, SubCategory
+from .models import MenuItem, Category, SubCategory, Tag
 
 
 class MenuItemForm(forms.ModelForm):
@@ -7,6 +7,7 @@ class MenuItemForm(forms.ModelForm):
         model = MenuItem
         fields = [
             'name',
+            'slug',
             'category',
             'subcategory',
             'short_description',
@@ -18,6 +19,7 @@ class MenuItemForm(forms.ModelForm):
 
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'slug': forms.TextInput(attrs={'class': 'form-control'}),
             'category': forms.Select(attrs={'class': 'form-select'}),
             'subcategory': forms.Select(attrs={'class': 'form-select'}),
             'short_description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
@@ -46,6 +48,16 @@ class SubCategoryForm(forms.ModelForm):
 
         widgets = {
             'category': forms.Select(attrs={'class': 'form-select'}),
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'slug': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+class TagForm(forms.ModelForm):
+    class Meta:
+        model = Tag
+        fields = ['name', 'slug']
+
+        widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'slug': forms.TextInput(attrs={'class': 'form-control'}),
         }

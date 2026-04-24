@@ -21,4 +21,7 @@ urlpatterns = [
     path('admin/subcategories/add/', views.add_subcategory, name='add_subcategory'),
     path('admin/subcategories/<int:pk>/edit/', views.edit_subcategory, name='edit_subcategory'),
     path('admin/subcategories/<int:pk>/delete/', views.delete_subcategory, name='delete_subcategory'),
+    path('admin/tags/add/', views.add_tag, name='add_tag'),
+    path('admin/tags/<int:pk>/edit/', views.edit_tag, name='edit_tag'),
+    path('admin/tags/<int:pk>/delete/', views.delete_tag, name='delete_tag'),
     ]

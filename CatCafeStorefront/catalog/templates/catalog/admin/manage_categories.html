@@ -20,6 +20,7 @@
                 <a href="{% url 'accounts:profile' %}" class="btn btn-outline-dark">Back to Profile</a>
                 <a href="{% url 'catalog:add_category' %}" class="btn btn-dark">Add Category</a>
                 <a href="{% url 'catalog:add_subcategory' %}" class="btn btn-dark">Add Subcategory</a>
+                <a href="{% url 'catalog:add_tag' %}" class="btn btn-dark">Add Tag</a>
             </div>
         </div>
 
@@ -79,6 +80,38 @@
                     {% empty %}
                         <tr>
                             <td colspan="3" class="text-center py-4">No subcategories found.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="mt-4">Tags</h2>
+        <div class="table-responsive management-table-wrapper category-table-wrapper">
+            <table class="table management-table align-middle">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Slug</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for tag in tags %}
+                        <tr>
+                            <td class="fw-bold">{{ tag.name }}</td>
+                            <td>{{ tag.slug }}</td>
+                            <td>
+                                <div class="table-action-buttons">
+                                    <a href="{% url 'catalog:edit_tag' tag.pk %}" class="btn btn-dark btn-sm">Edit</a>
+                                    <a href="{% url 'catalog:delete_tag' tag.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="3" class="text-center py-4">No tags found.</td>
                         </tr>
                     {% endfor %}
                 </tbody>

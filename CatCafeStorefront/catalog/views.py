@@ -5,7 +5,7 @@ from reviews.models import Rating
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.contrib.admin.views.decorators import staff_member_required
-from .forms import MenuItemForm, CategoryForm, SubCategoryForm
+from .forms import MenuItemForm, CategoryForm, SubCategoryForm, TagForm
 from .utils import apply_menu_filters
 
 
@@ -248,10 +248,12 @@ def delete_item(request, slug):
 def manage_categories(request):
     categories = Category.objects.all()
     subcategories = SubCategory.objects.select_related('category').all()
+    tags = Tag.objects.all()
 
     return render(request, 'catalog/admin/manage_categories.html', {
         'categories': categories,
         'subcategories': subcategories,
+        'tags': tags,
     })
 
 
@@ -354,4 +356,55 @@ def delete_subcategory(request, pk):
 
     return render(request, 'catalog/admin/delete_subcategory.html', {
         'subcategory': subcategory,
+    })
+
+
+@staff_member_required
+def add_tag(request):
+    if request.method == 'POST':
+        form = TagForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect('catalog:manage_categories')
+    else:
+        form = TagForm()
+
+    return render(request, 'catalog/admin/tag_form.html', {
+        'form': form,
+        'title': 'Add Tag',
+        'button_text': 'Add Tag',
+    })
+
+
+@staff_member_required
+def edit_tag(request, pk):
+    tag = get_object_or_404(Tag, pk=pk)
+
+    if request.method == 'POST':
+        form = TagForm(request.POST, instance=tag)
+
+        if form.is_valid():
+            form.save()
+            return redirect('catalog:manage_categories')
+    else:
+        form = TagForm(instance=tag)
+
+    return render(request, 'catalog/admin/tag_form.html', {
+        'form': form,
+        'title': 'Edit Tag',
+        'button_text': 'Save Changes',
+    })
+
+
+@staff_member_required
+def delete_tag(request, pk):
+    tag = get_object_or_404(Tag, pk=pk)
+
+    if request.method == 'POST':
+        tag.delete()
+        return redirect('catalog:manage_categories')
+
+    return render(request, 'catalog/admin/delete_tag.html', {
+        'tag': tag,
     })
