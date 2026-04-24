@@ -46,10 +46,12 @@ def profile_view(request):
         form = CustomUserChangeForm(instance=user)
 
     favorite_items = user.favorites.all().select_related('category', 'subcategory').prefetch_related('tags')
+    user_orders = user.orders.prefetch_related('items__menu_item').order_by('-created_at')
 
     context = {
         'form': form,
         'favorite_items': favorite_items,
+        'user_orders': user_orders,
     }
 
     return render(request, 'accounts/profile.html', context)

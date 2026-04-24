@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Order Confirmed{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/orders.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5 orders-page">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-5">
+            <div class="beige-box order-confirmed-box text-center">
+                <h1>Order Confirmed!</h1>
+
+                <p class="sec-desc">Your order was placed successfully.</p>
+
+                <p><strong>Order Number:</strong> #{{ order.id }}</p>
+                <p><strong>Total:</strong> €{{ order.total }}</p>
+                <p><strong>Card:</strong> **** **** **** {{ order.card_last_four }}</p>
+
+                <a href="{% url 'core:home' %}" class="btn btn-dark mt-3">
+                    Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

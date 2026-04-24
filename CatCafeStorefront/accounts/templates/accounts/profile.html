@@ -31,6 +31,12 @@
                         </button>
                     </li>
 
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="orders-tab" data-bs-toggle="pill" data-bs-target="#orders-pane" type="button" role="tab">
+                            Order History
+                        </button>
+                    </li>
+
                     {% if user.is_staff %}
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="admin-tab" data-bs-toggle="pill" data-bs-target="#admin-pane" type="button" role="tab">
@@ -102,7 +108,7 @@
                                                     View Item
                                                 </a>
 
-                                                <button
+                                                <a href="{% url 'orders:add_to_cart' item.id %}"
                                                     type="button"
                                                     class="btn btn-dark profile-cart-btn"
                                                     data-tooltip="Add item to cart"
@@ -123,7 +129,7 @@
                                                             <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-1.646-7.646-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708"></path>
                                                         </svg>
                                                     </span>
-                                                </button>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -132,6 +138,44 @@
                                 <p>You haven’t added any favorites yet.</p>
                             {% endfor %}
                         </div>
+                    </div>
+
+                    <!-- Order History -->
+                    <div class="tab-pane fade" id="orders-pane" role="tabpanel">
+                        <h2 class="mb-3">Order History</h2>
+
+                        {% if user_orders %}
+                            <div class="row g-4">
+                                {% for order in user_orders %}
+                                    <div class="col-md-6 col-lg-4">
+                                        <div class="order-history-card h-100">
+                                            <div class="order-history-header">
+                                                <h3>Order #{{ order.id }}</h3>
+                                                <p class="order-date">{{ order.created_at|date:"F j, Y" }}</p>
+                                            </div>
+
+                                            <div class="order-history-details">
+                                                <p><strong>Total:</strong> €{{ order.total }}</p>
+                                                <p><strong>Email:</strong> {{ order.email }}</p>
+                                                <p><strong>Card:</strong> **** {{ order.card_last_four }}</p>
+                                            </div>
+
+                                            <div class="order-items-list">
+                                                <h4>Items</h4>
+
+                                                {% for order_item in order.items.all %}
+                                                    <p class="order-item-row">
+                                                        {{ order_item.menu_item.name }} × {{ order_item.quantity }}
+                                                    </p>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p class="sec-desc">You have not placed any orders yet.</p>
+                        {% endif %}
                     </div>
 
                     <!-- Admin Tools -->

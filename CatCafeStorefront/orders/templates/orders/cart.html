@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Cat Cafe Athens Storefront - Cart{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/orders.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5 orders-page">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="beige-box orders-box">
+                <h1>Your Cart</h1>
+
+                {% if cart_items %}
+                    <div class="cart-items">
+                        {% for cart_item in cart_items %}
+                            <div class="cart-item-card">
+                                {% if cart_item.item.image %}
+                                    <img src="{{ cart_item.item.image.url }}" alt="{{ cart_item.item.name }}" class="cart-item-img">
+                                {% endif %}
+
+                                <div class="cart-item-info">
+                                    <h2>{{ cart_item.item.name }}</h2>
+                                    <p><strong>Price:</strong> €{{ cart_item.item.price }}</p>
+                                    <p><strong>Subtotal:</strong> €{{ cart_item.subtotal }}</p>
+
+                                    <form method="post" action="{% url 'orders:update_cart_quantity' cart_item.item.id %}" class="cart-quantity-form">
+                                        {% csrf_token %}
+                                        <label for="quantity-{{ cart_item.item.id }}">Quantity:</label>
+                                        <input
+                                            type="number"
+                                            id="quantity-{{ cart_item.item.id }}"
+                                            name="quantity"
+                                            value="{{ cart_item.quantity }}"
+                                            min="1"
+                                            class="form-control quantity-input"
+                                        >
+                                        <button type="submit" class="btn btn-dark btn-sm">Update</button>
+                                    </form>
+                                </div>
+
+                                <div class="cart-item-actions">
+                                    <a href="{{ cart_item.item.get_absolute_url }}" class="btn btn-dark btn-sm">
+                                        View Item
+                                    </a>
+
+                                    <a href="{% url 'orders:remove_from_cart' cart_item.item.id %}" class="btn btn-danger btn-sm">
+                                        Remove
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="cart-summary">
+                        <h2>Total: €{{ total }}</h2>
+
+                        <div class="cart-summary-actions">
+                            <a href="{% url 'orders:order_now' %}" class="btn btn-outline-dark">
+                                Continue Shopping
+                            </a>
+
+                            <a href="{% url 'orders:checkout' %}" class="btn btn-dark">
+                                Proceed to Checkout
+                            </a>
+                        </div>
+                    </div>
+                {% else %}
+                    <p class="sec-desc">Nothing has been added yet; go to 'Order Now!' to browse today's menu offerings.</p>
+
+                    <div class="text-center">
+                        <a href="{% url 'orders:order_now' %}" class="btn btn-dark">Order Now!</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

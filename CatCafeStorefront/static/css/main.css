@@ -278,3 +278,8 @@ h2 {
     width: clamp(14px, 3vw, 30px);
     height: clamp(14px, 3vw, 30px);
 }
+
+/* Filter Section Styling */
+.filter-form {
+    margin: 15px 0;
+}

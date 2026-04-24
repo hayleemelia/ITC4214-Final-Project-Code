@@ -17,6 +17,24 @@
     color: black;
 }
 
+@media (max-width: 767px) {
+    #profileTabs {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px; /* space between buttons */
+    }
+
+    #profileTabs .nav-item {
+        width: 100%;
+    }
+
+    #profileTabs .nav-link {
+        width: 100%;
+        text-align: center;
+        margin-right: 0; /* remove desktop spacing */
+    }
+}
+
 .profile-page .card {
     background-color: #C1EBE2;
     border: 2px solid black;
@@ -90,4 +108,45 @@
 
 .admin-btn {
     width: 500px;
+}
+
+.order-history-card {
+    background-color: #C1EBE2;
+    border: 2px solid black;
+    border-radius: 14px;
+    padding: 18px;
+}
+
+.order-history-header {
+    border-bottom: 1px solid black;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+}
+
+.order-history-header h3 {
+    margin-bottom: 4px;
+    font-size: 22px;
+}
+
+.order-date {
+    margin-bottom: 0;
+    font-size: 15px;
+}
+
+.order-history-details p {
+    margin-bottom: 6px;
+}
+
+.order-items-list {
+    margin-top: 12px;
+}
+
+.order-items-list h4 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.order-item-row {
+    margin-bottom: 4px;
+    font-size: 15px;
 }

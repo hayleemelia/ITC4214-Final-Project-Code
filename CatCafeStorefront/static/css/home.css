@@ -1,0 +1,64 @@
+.popular-section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.popular-card {
+    background-color: #C1EBE2;
+    border: 2px solid black;
+}
+
+.popular-card .card-img-top {
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 2px solid black;
+}
+
+.profile-card-action-row {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.profile-view-btn {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-cart-btn {
+    width: 56px;
+    min-width: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 0;
+}
+
+.profile-cart-btn svg {
+    display: block;
+}
+
+.profile-cart-btn::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    right: 0;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(4px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    background-color: rgba(0, 0, 0, 0.88);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.profile-cart-btn:hover::after {
+    opacity: 1;
+    transform: translateY(0);
+}

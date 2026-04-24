@@ -1,11 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.db.models import Q, Avg
+from django.db.models import Avg
 from .models import MenuItem, Category, SubCategory, Tag
 from reviews.models import Rating
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.contrib.admin.views.decorators import staff_member_required
 from .forms import MenuItemForm, CategoryForm, SubCategoryForm
+from .utils import apply_menu_filters
 
 
 def menu_list(request):
@@ -13,43 +14,7 @@ def menu_list(request):
         'category', 'subcategory'
     ).prefetch_related('tags')
 
-    #get filter values from URL query parameters
-    q = request.GET.get('q', '').strip()
-    category_id = request.GET.get('category', '')
-    subcategory_id = request.GET.get('subcategory', '')
-    tag_id = request.GET.get('tag', '')
-    min_price = request.GET.get('min_price', '')
-    max_price = request.GET.get('max_price', '')
-
-    #search by name/subcategory
-    if q:
-        items = items.filter(
-            Q(name__icontains=q) |
-            Q(subcategory__name__icontains=q)
-        )
-
-    #filter by category
-    if category_id:
-        items = items.filter(category_id=category_id)
-
-    #filter by subcategory
-    if subcategory_id:
-        items = items.filter(subcategory_id=subcategory_id)
-
-    #filter by tag
-    if tag_id:
-        items = items.filter(tags__id=tag_id)
-
-    #filter by minimum price
-    if min_price:
-        items = items.filter(price__gte=min_price)
-
-    #filter by maximum price
-    if max_price:
-        items = items.filter(price__lte=max_price)
-
-    #avoid duplicates when filtering through tags
-    items = items.distinct()
+    items, current_filters = apply_menu_filters(request, items)
 
     favorite_item_ids = []
 
@@ -63,15 +28,8 @@ def menu_list(request):
         'categories': Category.objects.all(),
         'subcategories': SubCategory.objects.all(),
         'tags': Tag.objects.all(),
-
-        # send current values back so the form stays filled in
-        'current_q': q,
-        'current_category': category_id,
-        'current_subcategory': subcategory_id,
-        'current_tag': tag_id,
-        'current_min_price': min_price,
-        'current_max_price': max_price,
         'favorite_item_ids': favorite_item_ids,
+        **current_filters,
     }
 
     return render(request, 'catalog/menu_list.html', context)

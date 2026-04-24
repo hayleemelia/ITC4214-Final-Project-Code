@@ -1,10 +1,6 @@
 /* Styling for all menu page related components */
 
 /* Styles relating to menu_list.html */
-.filter-form {
-    margin: 15px 0;
-}
-
 .card {
     background-color: #F2F1E5;
     border: 2px solid black;
