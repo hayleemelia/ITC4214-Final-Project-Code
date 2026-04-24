@@ -130,10 +130,11 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-# Authentication redirects
+#authentication redirects
+LOGIN_URL = 'accounts:login'
 LOGIN_REDIRECT_URL = 'core:home'
 LOGOUT_REDIRECT_URL = 'core:home'
 
-#Media configuration for image file handling
+#media configuration for image file handling
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'

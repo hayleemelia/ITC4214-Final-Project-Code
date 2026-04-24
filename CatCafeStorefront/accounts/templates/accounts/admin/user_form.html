@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/management.css' %}">
+{% endblock %}
+
+{% block title %}Cat Cafe Athens Storefront - Edit {{ selected_user.username }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5 management-page">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="beige-box management-box">
+                <h1 class="mb-4">Edit User: {{ selected_user.username }}</h1>
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Username</label>
+                            {{ form.username }}
+                            {{ form.username.errors }}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Email</label>
+                            {{ form.email }}
+                            {{ form.email.errors }}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">First Name</label>
+                            {{ form.first_name }}
+                            {{ form.first_name.errors }}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Last Name</label>
+                            {{ form.last_name }}
+                            {{ form.last_name.errors }}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Phone Number</label>
+                            {{ form.phone_number }}
+                            {{ form.phone_number.errors }}
+                        </div>
+
+                        <div class="col-12 form-check ms-2">
+                            {{ form.is_staff }}
+                            <label class="form-check-label">Staff/Admin user</label>
+                            {{ form.is_staff.errors }}
+                        </div>
+
+                        <div class="col-12 form-check ms-2">
+                            {{ form.is_active }}
+                            <label class="form-check-label">Active account</label>
+                            {{ form.is_active.errors }}
+                        </div>
+
+                        <div class="col-12 d-flex justify-content-end gap-2 mt-4">
+                            <a href="{% url 'accounts:manage_users' %}" class="btn btn-outline-dark">Cancel</a>
+                            <button type="submit" class="btn btn-dark">Save Changes</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

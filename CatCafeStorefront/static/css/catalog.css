@@ -1,6 +1,10 @@
 /* Styling for all menu page related components */
 
 /* Styles relating to menu_list.html */
+.filter-form {
+    margin: 15px 0;
+}
+
 .card {
     background-color: #F2F1E5;
     border: 2px solid black;
@@ -99,9 +103,10 @@
 }
 
 /* Styles relating to item_detail.html */
+
+/* Item Detail Card Section Styling */
 .product-detail {
     padding: 30px 20px;
-    border-radius: 16px;
 }
 
 .product-image-wrapper {
@@ -370,4 +375,39 @@
         bottom: -12px;
         right: 65px;
     }
+}
+
+/* Recommendation Section Styling */
+.recommendation-section {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 30px;
+    margin-top: 20px;
+}
+
+.recommendation-section h1 {
+    margin-bottom: 20px;
+}
+
+.recommendation-card {
+    background-color: #C1EBE2;
+    border: 2px solid black;
+    overflow: hidden;
+}
+
+.recommendation-img {
+    height: 300px;
+    object-fit: cover;
+    width: 100%;
+    border-bottom: 2px solid black;
+}
+
+.recommendation-card .card-title {
+    font-size: 22px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.recommendation-card .card-body p {
+    font-size: 16px;
 }

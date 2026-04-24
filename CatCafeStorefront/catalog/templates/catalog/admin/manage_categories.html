@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/management.css' %}">
+{% endblock %}
+
+{% block title %}Cat Cafe Athens Storefront - Manage Categories{% endblock %}
+
+{% block content %}
+<div class="container mt-5 management-page">
+    <div class="beige-box management-box">
+        <div class="management-header">
+            <div class="management-title-group">
+                <h1>Manage Categories</h1>
+                <p class="management-subtitle">Add, edit, or remove menu categories and subcategories.</p>
+            </div>
+
+            <div class="management-actions">
+                <a href="{% url 'accounts:profile' %}" class="btn btn-outline-dark">Back to Profile</a>
+                <a href="{% url 'catalog:add_category' %}" class="btn btn-dark">Add Category</a>
+                <a href="{% url 'catalog:add_subcategory' %}" class="btn btn-dark">Add Subcategory</a>
+            </div>
+        </div>
+
+        <h2>Categories</h2>
+        <div class="table-responsive management-table-wrapper mb-4 category-table-wrapper">
+            <table class="table management-table align-middle">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for category in categories %}
+                        <tr>
+                            <td class="fw-bold">{{ category.name }}</td>
+                            <td>
+                                <div class="table-action-buttons">
+                                    <a href="{% url 'catalog:edit_category' category.pk %}" class="btn btn-dark btn-sm">Edit</a>
+                                    <a href="{% url 'catalog:delete_category' category.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="2" class="text-center py-4">No categories found.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <h2>Subcategories</h2>
+        <div class="table-responsive management-table-wrapper category-table-wrapper">
+            <table class="table management-table align-middle">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Parent Category</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for subcategory in subcategories %}
+                        <tr>
+                            <td class="fw-bold">{{ subcategory.name }}</td>
+                            <td>{{ subcategory.category.name }}</td>
+                            <td>
+                                <div class="table-action-buttons">
+                                    <a href="{% url 'catalog:edit_subcategory' subcategory.pk %}" class="btn btn-dark btn-sm">Edit</a>
+                                    <a href="{% url 'catalog:delete_subcategory' subcategory.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="3" class="text-center py-4">No subcategories found.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

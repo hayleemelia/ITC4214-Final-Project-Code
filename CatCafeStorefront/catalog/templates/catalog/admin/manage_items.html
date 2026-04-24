@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/management.css' %}">
+{% endblock %}
+
+{% block title %} Cat Cafe Athens Storefront - Manage Menu Items{% endblock %}
+
+{% block content %}
+<div class="container mt-5 management-page">
+    <div class="beige-box management-box">
+        <div class="management-header">
+            <div class="management-title-group">
+                <h1>Manage Menu Items</h1>
+                <p class="management-subtitle">Add, edit, or remove items from the cat cafe menu.</p>
+            </div>
+
+            <div class="management-actions">
+                <a href="{% url 'accounts:profile' %}" class="btn btn-outline-dark">Back to Profile</a>
+                <a href="/admin/" class="btn btn-outline-dark">Open Django Admin</a>
+                <a href="{% url 'catalog:add_item' %}" class="btn btn-dark">Add New Item</a>
+            </div>
+        </div>
+
+        <div class="table-responsive management-table-wrapper">
+            <table class="table management-table align-middle">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Subcategory</th>
+                        <th>Price</th>
+                        <th>Available</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <td>
+                                {% if item.image %}
+                                    <img src="{{ item.image.url }}" alt="{{ item.name }}" class="management-img">
+                                {% else %}
+                                    <span class="text-muted">No image</span>
+                                {% endif %}
+                            </td>
+
+                            <td class="fw-bold">{{ item.name }}</td>
+                            <td>{{ item.category.name }}</td>
+                            <td>{{ item.subcategory.name }}</td>
+                            <td>€{{ item.price }}</td>
+
+                            <td>
+                                {% if item.is_available %}
+                                    <span class="status-badge available">Available</span>
+                                {% else %}
+                                    <span class="status-badge unavailable">Unavailable</span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <div class="table-action-buttons">
+                                    <a href="{% url 'catalog:edit_item' item.slug %}" class="btn btn-dark btn-sm">
+                                        Edit
+                                    </a>
+
+                                    <a href="{% url 'catalog:delete_item' item.slug %}" class="btn btn-danger btn-sm">
+                                        Delete
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="7" class="text-center py-4">
+                                No menu items found.
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

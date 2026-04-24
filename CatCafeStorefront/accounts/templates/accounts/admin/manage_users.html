@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/management.css' %}">
+{% endblock %}
+
+{% block title %}Cat Cafe Athens Storefront - Manage Users{% endblock %}
+
+{% block content %}
+<div class="container mt-5 management-page">
+    <div class="beige-box management-box">
+        <div class="management-header">
+            <div class="management-title-group">
+                <h1>Manage Users</h1>
+                <p class="management-subtitle">View and update registered user accounts.</p>
+            </div>
+
+            <div class="management-actions">
+                <a href="{% url 'accounts:profile' %}" class="btn btn-outline-dark">Back to Profile</a>
+                <a href="/admin/" class="btn btn-outline-dark">Open Django Admin</a>
+            </div>
+        </div>
+
+        <div class="table-responsive management-table-wrapper">
+            <table class="table management-table align-middle">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Name</th>
+                        <th>Staff</th>
+                        <th>Active</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for account in users %}
+                        <tr>
+                            <td class="fw-bold">{{ account.username }}</td>
+                            <td>{{ account.email }}</td>
+                            <td>{{ account.first_name }} {{ account.last_name }}</td>
+
+                            <td>
+                                {% if account.is_staff %}
+                                    <span class="status-badge available">Staff</span>
+                                {% else %}
+                                    <span class="status-badge unavailable">Customer</span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                {% if account.is_active %}
+                                    <span class="status-badge available">Active</span>
+                                {% else %}
+                                    <span class="status-badge unavailable">Inactive</span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <div class="table-action-buttons">
+                                    <a href="{% url 'accounts:edit_user' account.pk %}" class="btn btn-dark btn-sm">
+                                        Edit
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center py-4">No users found.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Cat Cafe Athens Storefront - Delete {{ item.name }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/management.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5 delete-page">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-5">
+            <div class="beige-box delete-confirm-box pb-4 text-center">
+                <h1 class="delete-title">Delete Item?</h1>
+
+                <p class="delete-message">
+                    Are you sure you want to delete <strong>{{ item.name }}</strong>?
+                    This action cannot be undone.
+                </p>
+
+                {% if item.image %}
+                    <img src="{{ item.image.url }}"
+                         alt="{{ item.name }}"
+                         class="delete-preview-img">
+                {% endif %}
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="delete-actions">
+                        <a href="{% url 'catalog:manage_items' %}" class="btn btn-outline-dark">
+                            Cancel
+                        </a>
+
+                        <button type="submit" class="btn btn-danger">
+                            Yes, Delete
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

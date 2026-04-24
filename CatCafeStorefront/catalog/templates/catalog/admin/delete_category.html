@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/management.css' %}">
+{% endblock %}
+
+{% block title %} Cat Cafe Athens Storefront - Delete {{ category.name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5 delete-page">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-5">
+            <div class="beige-box delete-confirm-box text-center">
+                <h1 class="delete-title">Delete Category?</h1>
+
+                <p class="delete-message">
+                    Are you sure you want to delete <strong>{{ category.name }}</strong>?
+                    This may affect linked menu items.
+                </p>
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="delete-actions">
+                        <a href="{% url 'catalog:manage_categories' %}" class="btn btn-outline-dark">Cancel</a>
+                        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

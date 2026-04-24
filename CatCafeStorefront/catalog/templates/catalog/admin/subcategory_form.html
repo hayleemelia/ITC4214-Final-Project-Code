@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/management.css' %}">
+{% endblock %}
+
+{% block title %} Cat Cafe Athens Storefront - {{ title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5 management-page">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="beige-box management-box">
+                <h1 class="mb-4">{{ title }}</h1>
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label class="form-label">Parent Category</label>
+                        {{ form.category }}
+                        {{ form.category.errors }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Subcategory Name</label>
+                        {{ form.name }}
+                        {{ form.name.errors }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Slug</label>
+                        {{ form.slug }}
+                        {{ form.slug.errors }}
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2 mt-4">
+                        <a href="{% url 'catalog:manage_categories' %}" class="btn btn-outline-dark">
+                            Cancel
+                        </a>
+
+                        <button type="submit" class="btn btn-dark">
+                            {{ button_text }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

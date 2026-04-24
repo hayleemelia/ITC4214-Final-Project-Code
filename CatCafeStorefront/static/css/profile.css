@@ -1,0 +1,93 @@
+.profile-box {
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
+
+.profile-page .nav-pills .nav-link {
+    color: white;
+    font-size: 20px;
+    border: 1px solid black;
+    margin-right: 8px;
+    background-color: black;
+}
+
+.profile-page .nav-pills .nav-link:hover {
+    background-color: #C1EBE2;
+    color: black;
+}
+
+.profile-page .card {
+    background-color: #C1EBE2;
+    border: 2px solid black;
+}
+
+.profile-page .card-img-top {
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 2px solid black;
+}
+
+.profile-card-action-row {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.profile-view-btn {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-cart-btn {
+    width: 56px;
+    min-width: 56px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.cart-icon-default {
+    display: inline-flex;
+}
+
+.cart-icon-added {
+    display: none;
+}
+
+.profile-cart-btn.added .cart-icon-default {
+    display: none;
+}
+
+.profile-cart-btn.added .cart-icon-added {
+    display: inline;
+}
+
+.profile-cart-btn::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    right: 0;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(4px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    background-color: rgba(0, 0, 0, 0.88);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.profile-cart-btn:hover::after {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.admin-btn {
+    width: 500px;
+}

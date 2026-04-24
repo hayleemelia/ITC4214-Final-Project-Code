@@ -119,9 +119,7 @@
                                     </div>
 
                                     <div class="tags-section mt-4">
-                                        <div class="tags-section mt-4">
                                             <h2 class="detail-subheading">Tags</h2>
-                                        </div>
 
                                         <div class="tag-list">
                                             {% for tag in item.tags.all %}
@@ -148,6 +146,40 @@
                         </div>
                     </div>
 
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="row justify-content-center mt-4">
+        <div class="col-lg-10">
+            <div class="beige-box recommendation-section">
+                <h1>You might also like...</h1>
+
+                <div class="row g-3">
+                    {% for rec_item in recommended_items %}
+                        <div class="col-md-4">
+                            <div class="card recommendation-card h-100">
+                                {% if rec_item.image %}
+                                    <img src="{{ rec_item.image.url }}" class="card-img-top recommendation-img" alt="{{ rec_item.name }}">
+                                {% endif %}
+
+                                <div class="card-body d-flex flex-column">
+                                    <h3 class="card-title">{{ rec_item.name }}</h3>
+                                    <p class="small mb-2">
+                                        <strong>{{ rec_item.category.name }}</strong> | {{ rec_item.subcategory.name }}
+                                    </p>
+                                    <p>{{ rec_item.short_description|truncatechars:80 }}</p>
+                                    <p><strong>€{{ rec_item.price }}</strong></p>
+
+                                    <a href="{{ rec_item.get_absolute_url }}" class="btn btn-dark mt-auto">
+                                        View Item
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p>No recommendations available right now.</p>
+                    {% endfor %}
                 </div>
             </div>
         </div>
