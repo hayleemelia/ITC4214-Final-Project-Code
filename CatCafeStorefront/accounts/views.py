@@ -5,6 +5,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import CustomUserCreationForm, CustomAuthenticationForm, CustomUserChangeForm, AdminUserUpdateForm
 from django.urls import reverse_lazy
+from django.contrib import messages
 
 #creating the registration view
 def register_view(request):
@@ -31,6 +32,10 @@ class CustomLoginView(LoginView):
 #creating the logout view
 class CustomLogoutView(LogoutView):
     next_page = reverse_lazy('core:home')
+
+    def dispatch(self, request, *args, **kwargs):
+        messages.success(request, "Successfully logged out.")
+        return super().dispatch(request, *args, **kwargs)
 
 #profile view
 @login_required
